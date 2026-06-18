@@ -1,0 +1,598 @@
+{
+  "timestamp": "2026-06-15T21:03:03.741685",
+  "user_id": 16,
+  "settings": {
+    "DENSE_TOP_K": 20,
+    "BM25_TOP_K": 20,
+    "FINAL_TOP_K": 8,
+    "RRF_K": 60,
+    "RRF_ALPHA": 0.5,
+    "negative_threshold": null
+  },
+  "results": [
+    {
+      "question": "Meanshift算法在目标跟踪中有什么局限性？",
+      "expected_doc_ids": [
+        "141"
+      ],
+      "category": "mechanism",
+      "topK_doc_ids": [
+        "137",
+        "148",
+        "147",
+        "148",
+        "137",
+        "140",
+        "142",
+        "148"
+      ],
+      "top1_score": 0.008197,
+      "hit": false,
+      "rank": 0
+    },
+    {
+      "question": "YOLOv8n在路面裂缝检测中有什么不足？",
+      "expected_doc_ids": [
+        "112"
+      ],
+      "category": "mechanism",
+      "topK_doc_ids": [
+        "138",
+        "112",
+        "112",
+        "112",
+        "112",
+        "112",
+        "112",
+        "112"
+      ],
+      "top1_score": 0.008197,
+      "hit": true,
+      "rank": 2
+    },
+    {
+      "question": "RAG推荐系统在上下文融合方面主要存在什么问题？",
+      "expected_doc_ids": [
+        "131"
+      ],
+      "category": "overview",
+      "topK_doc_ids": [
+        "109",
+        "151",
+        "104",
+        "142",
+        "109",
+        "113",
+        "104",
+        "148"
+      ],
+      "top1_score": 0.008197,
+      "hit": false,
+      "rank": 0
+    },
+    {
+      "question": "随机矩阵在扩展目标跟踪中有什么应用？",
+      "expected_doc_ids": [
+        "135"
+      ],
+      "category": "factual",
+      "topK_doc_ids": [
+        "148",
+        "137",
+        "138",
+        "137",
+        "137",
+        "140",
+        "147",
+        "142"
+      ],
+      "top1_score": 0.008197,
+      "hit": false,
+      "rank": 0
+    },
+    {
+      "question": "什么是反事实公平，它和群体公平有什么区别？",
+      "expected_doc_ids": [
+        "50"
+      ],
+      "category": "factual",
+      "topK_doc_ids": [
+        "51",
+        "51",
+        "51",
+        "46",
+        "51",
+        "51",
+        "51",
+        "33"
+      ],
+      "top1_score": 0.008197,
+      "hit": false,
+      "rank": 0
+    },
+    {
+      "question": "SRCNN模型中的ReLU激活函数是怎么避免梯度消失问题的？",
+      "expected_doc_ids": [
+        "94"
+      ],
+      "category": "mechanism",
+      "topK_doc_ids": [
+        "105",
+        "108",
+        "103",
+        "91",
+        "104",
+        "113",
+        "52",
+        "109"
+      ],
+      "top1_score": 0.008197,
+      "hit": false,
+      "rank": 0
+    },
+    {
+      "question": "轻量化神经网络在嵌入式平台上运行速度不理想，目前研究者主要从哪两个方面探索加速途径？",
+      "expected_doc_ids": [
+        "154"
+      ],
+      "category": "mechanism",
+      "topK_doc_ids": [
+        "152",
+        "136",
+        "140",
+        "93",
+        "113",
+        "152",
+        "113",
+        "93"
+      ],
+      "top1_score": 0.008197,
+      "hit": false,
+      "rank": 0
+    },
+    {
+      "question": "基于YOLO v5和KCF算法的视觉跟随机器人是如何实现目标检测与跟踪的？",
+      "expected_doc_ids": [
+        "139"
+      ],
+      "category": "mechanism",
+      "topK_doc_ids": [
+        "145",
+        "145",
+        "145",
+        "142",
+        "137",
+        "148",
+        "145",
+        "145"
+      ],
+      "top1_score": 0.008197,
+      "hit": false,
+      "rank": 0
+    },
+    {
+      "question": "相机和毫米波雷达融合在智能车辆目标检测中有什么优势？",
+      "expected_doc_ids": [
+        "147"
+      ],
+      "category": "mechanism",
+      "topK_doc_ids": [
+        "145",
+        "147",
+        "96",
+        "147",
+        "137",
+        "142",
+        "148",
+        "146"
+      ],
+      "top1_score": 0.008197,
+      "hit": true,
+      "rank": 2
+    },
+    {
+      "question": "无人机航拍场景下目标检测面临哪些主要挑战？",
+      "expected_doc_ids": [
+        "144"
+      ],
+      "category": "overview",
+      "topK_doc_ids": [
+        "145",
+        "145",
+        "142",
+        "137",
+        "138",
+        "145",
+        "148",
+        "135"
+      ],
+      "top1_score": 0.008197,
+      "hit": false,
+      "rank": 0
+    },
+    {
+      "question": "卫星遥感影像中弱小目标检测有什么难点？",
+      "expected_doc_ids": [
+        "136"
+      ],
+      "category": "mechanism",
+      "topK_doc_ids": [
+        "136",
+        "136",
+        "138",
+        "136",
+        "136",
+        "136",
+        "135",
+        "136"
+      ],
+      "top1_score": 0.008197,
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "question": "自动驾驶场景下多目标跟踪的数据关联方法有哪些？",
+      "expected_doc_ids": [
+        "148"
+      ],
+      "category": "overview",
+      "topK_doc_ids": [
+        "137",
+        "147",
+        "147",
+        "147",
+        "140",
+        "146",
+        "137",
+        "137"
+      ],
+      "top1_score": 0.008197,
+      "hit": false,
+      "rank": 0
+    },
+    {
+      "question": "协同过滤算法在电商平台中如何分析用户行为？",
+      "expected_doc_ids": [
+        "124"
+      ],
+      "category": "mechanism",
+      "topK_doc_ids": [
+        "138",
+        "137",
+        "137",
+        "142",
+        "148",
+        "137",
+        "113",
+        "138"
+      ],
+      "top1_score": 0.008197,
+      "hit": false,
+      "rank": 0
+    },
+    {
+      "question": "大语言模型在推荐系统中的应用有哪些方式？",
+      "expected_doc_ids": [
+        "128"
+      ],
+      "category": "overview",
+      "topK_doc_ids": [
+        "127",
+        "128",
+        "127",
+        "127",
+        "127",
+        "127",
+        "132",
+        "127"
+      ],
+      "top1_score": 0.008197,
+      "hit": true,
+      "rank": 2
+    },
+    {
+      "question": "冷启动问题在推荐系统中如何解决？",
+      "expected_doc_ids": [
+        "116"
+      ],
+      "category": "mechanism",
+      "topK_doc_ids": [
+        "142",
+        "108",
+        "151",
+        "104",
+        "137",
+        "109",
+        "140",
+        "135"
+      ],
+      "top1_score": 0.008197,
+      "hit": false,
+      "rank": 0
+    },
+    {
+      "question": "检索增强生成技术在推荐系统中的研究进展是什么？",
+      "expected_doc_ids": [
+        "132"
+      ],
+      "category": "overview",
+      "topK_doc_ids": [
+        "142",
+        "93",
+        "51",
+        "148",
+        "93",
+        "105",
+        "140",
+        "93"
+      ],
+      "top1_score": 0.008197,
+      "hit": false,
+      "rank": 0
+    },
+    {
+      "question": "基于上下文感知的就业推荐系统是如何设计的？",
+      "expected_doc_ids": [
+        "122"
+      ],
+      "category": "mechanism",
+      "topK_doc_ids": [
+        "134",
+        "128",
+        "128",
+        "128",
+        "128",
+        "128",
+        "52",
+        "128"
+      ],
+      "top1_score": 0.008197,
+      "hit": false,
+      "rank": 0
+    },
+    {
+      "question": "联邦学习在网络入侵检测中如何实现知识共享？",
+      "expected_doc_ids": [
+        "156"
+      ],
+      "category": "mechanism",
+      "topK_doc_ids": [
+        "160",
+        "156",
+        "167",
+        "152",
+        "156",
+        "156",
+        "92",
+        "156"
+      ],
+      "top1_score": 0.008197,
+      "hit": true,
+      "rank": 2
+    },
+    {
+      "question": "概念漂移对网络入侵检测系统有什么影响？",
+      "expected_doc_ids": [
+        "164"
+      ],
+      "category": "mechanism",
+      "topK_doc_ids": [
+        "160",
+        "162",
+        "113",
+        "104",
+        "172",
+        "173",
+        "158",
+        "168"
+      ],
+      "top1_score": 0.008197,
+      "hit": false,
+      "rank": 0
+    },
+    {
+      "question": "对抗样本攻击对工控系统入侵检测有什么威胁？",
+      "expected_doc_ids": [
+        "172"
+      ],
+      "category": "mechanism",
+      "topK_doc_ids": [
+        "164",
+        "160",
+        "159",
+        "172",
+        "162",
+        "155",
+        "172",
+        "164"
+      ],
+      "top1_score": 0.008197,
+      "hit": true,
+      "rank": 4
+    },
+    {
+      "question": "基于深度学习的网络入侵检测关键技术有哪些？",
+      "expected_doc_ids": [
+        "165"
+      ],
+      "category": "overview",
+      "topK_doc_ids": [
+        "113",
+        "166",
+        "162",
+        "108",
+        "155",
+        "152",
+        "98",
+        "155"
+      ],
+      "top1_score": 0.008197,
+      "hit": false,
+      "rank": 0
+    },
+    {
+      "question": "图神经网络在网络攻击检测中有什么应用？",
+      "expected_doc_ids": [
+        "155"
+      ],
+      "category": "mechanism",
+      "topK_doc_ids": [
+        "136",
+        "160",
+        "114",
+        "145",
+        "152",
+        "137",
+        "109",
+        "162"
+      ],
+      "top1_score": 0.008197,
+      "hit": false,
+      "rank": 0
+    },
+    {
+      "question": "深度学习在棉花病虫害图像识别中如何提高分类准确率？",
+      "expected_doc_ids": [
+        "105"
+      ],
+      "category": "mechanism",
+      "topK_doc_ids": [
+        "105",
+        "105",
+        "105",
+        "105",
+        "105",
+        "96",
+        "105",
+        "96"
+      ],
+      "top1_score": 0.008197,
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "question": "细粒度图像分类中注意力机制和多尺度ViT如何结合？",
+      "expected_doc_ids": [
+        "114"
+      ],
+      "category": "mechanism",
+      "topK_doc_ids": [
+        "114",
+        "114",
+        "112",
+        "148",
+        "108",
+        "52",
+        "108",
+        "148"
+      ],
+      "top1_score": 0.008197,
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "question": "垃圾分类识别算法中深度学习方法有哪些？",
+      "expected_doc_ids": [
+        "104"
+      ],
+      "category": "overview",
+      "topK_doc_ids": [
+        "108",
+        "104",
+        "107",
+        "140",
+        "104",
+        "103",
+        "107",
+        "148"
+      ],
+      "top1_score": 0.008197,
+      "hit": true,
+      "rank": 2
+    },
+    {
+      "question": "焊缝缺陷识别系统是如何设计的？",
+      "expected_doc_ids": [
+        "106"
+      ],
+      "category": "overview",
+      "topK_doc_ids": [
+        "108",
+        "137",
+        "108",
+        "151",
+        "140",
+        "142",
+        "94",
+        "148"
+      ],
+      "top1_score": 0.008197,
+      "hit": false,
+      "rank": 0
+    },
+    {
+      "question": "基于叶片图像特征的果树病虫害识别方法是什么？",
+      "expected_doc_ids": [
+        "100"
+      ],
+      "category": "mechanism",
+      "topK_doc_ids": [
+        "100",
+        "100",
+        "96",
+        "100",
+        "100",
+        "96",
+        "105",
+        "100"
+      ],
+      "top1_score": 0.008197,
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "question": "用IOU作为损失函数时，YOLOX模型在各类船舶目标上的检测准确率怎么样？",
+      "expected_doc_ids": [
+        "149"
+      ],
+      "category": "factual",
+      "topK_doc_ids": [
+        "103",
+        "109",
+        "149",
+        "149",
+        "91",
+        "149",
+        "93",
+        "149"
+      ],
+      "top1_score": 0.008197,
+      "hit": true,
+      "rank": 3
+    }
+  ],
+  "metrics": {
+    "total_normal": 28,
+    "total_negative": 0,
+    "hit_rate": 0.3929,
+    "mrr": 0.253,
+    "normal_hits": 11,
+    "negative_correct": 0,
+    "negative_fpr": null,
+    "group_factual": {
+      "count": 3,
+      "hit_rate": 0.3333,
+      "mrr": 0.1111
+    },
+    "group_mechanism": {
+      "count": 17,
+      "hit_rate": 0.4706,
+      "mrr": 0.3382
+    },
+    "group_overview": {
+      "count": 8,
+      "hit_rate": 0.25,
+      "mrr": 0.125
+    }
+  }
+}

@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+*.egg
+
+# Environment
+.env
+
+# Logs
+logs/
+*.log
+
+# Uploads
+data/documents/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# Legacy
+backend_old/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Claude Code
+.claude/
+
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store

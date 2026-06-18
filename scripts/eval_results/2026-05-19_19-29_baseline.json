@@ -1,0 +1,378 @@
+{
+  "timestamp": "2026-05-19T19:29:05.893997",
+  "user_id": 9,
+  "settings": {
+    "DENSE_TOP_K": 20,
+    "BM25_TOP_K": 20,
+    "FINAL_TOP_K": 5,
+    "RRF_K": 60,
+    "RRF_ALPHA": 0.5,
+    "negative_threshold": null
+  },
+  "results": [
+    {
+      "question": "FMECA在装备测试性验证试验中具体包含哪两个部分？",
+      "expected_doc_ids": [
+        "25"
+      ],
+      "category": "factual",
+      "top5_doc_ids": [
+        "25",
+        "25",
+        "25",
+        "25",
+        "25"
+      ],
+      "top1_score": 0.008197,
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "question": "进行FMECA分析时，为什么本文选择危害性矩阵方法而不是风险优先数方法？",
+      "expected_doc_ids": [
+        "25"
+      ],
+      "category": "factual",
+      "top5_doc_ids": [
+        "25",
+        "21",
+        "25",
+        "21",
+        "25"
+      ],
+      "top1_score": 0.008197,
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "question": "FMECA和失效物理分析法是怎么结合起来用的？",
+      "expected_doc_ids": [
+        "25"
+      ],
+      "category": "factual",
+      "top5_doc_ids": [
+        "25",
+        "25",
+        "25",
+        "25",
+        "25"
+      ],
+      "top1_score": 0.008197,
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "question": "过压保护电路的严酷度类别是怎么划分的？",
+      "expected_doc_ids": [
+        "25"
+      ],
+      "category": "factual",
+      "top5_doc_ids": [
+        "25",
+        "25",
+        "25",
+        "25",
+        "25"
+      ],
+      "top1_score": 0.008197,
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "question": "过压保护电路故障树中顶事件T的布尔表达式是如何推导出来的？",
+      "expected_doc_ids": [
+        "25"
+      ],
+      "category": "factual",
+      "top5_doc_ids": [
+        "25",
+        "25",
+        "25",
+        "25",
+        "25"
+      ],
+      "top1_score": 0.008197,
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "question": "装备故障预测技术有什么重要意义？",
+      "expected_doc_ids": [
+        "26"
+      ],
+      "category": "factual",
+      "top5_doc_ids": [
+        "25",
+        "25",
+        "25",
+        "25",
+        "25"
+      ],
+      "top1_score": 0.008197,
+      "hit": false,
+      "rank": 0
+    },
+    {
+      "question": "什么是SIM计划，在LE阶段制定该计划需要哪些步骤？",
+      "expected_doc_ids": [
+        "21"
+      ],
+      "category": "factual",
+      "top5_doc_ids": [
+        "21",
+        "21",
+        "21",
+        "21",
+        "21"
+      ],
+      "top1_score": 0.008197,
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "question": "这篇论文用了什么数据集来验证方法？数据集中有多少台发动机单元？",
+      "expected_doc_ids": [
+        "21"
+      ],
+      "category": "factual",
+      "top5_doc_ids": [
+        "21",
+        "21",
+        "21",
+        "21",
+        "21"
+      ],
+      "top1_score": 0.008197,
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "question": "工业资产到达设计寿命终点后，通常有哪些处理策略？",
+      "expected_doc_ids": [
+        "21"
+      ],
+      "category": "mechanism",
+      "top5_doc_ids": [
+        "21",
+        "21",
+        "21",
+        "21",
+        "21"
+      ],
+      "top1_score": 0.008197,
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "question": "生命周期延长（LE）过程包括哪些主要步骤？",
+      "expected_doc_ids": [
+        "21"
+      ],
+      "category": "mechanism",
+      "top5_doc_ids": [
+        "21",
+        "21",
+        "21",
+        "21",
+        "21"
+      ],
+      "top1_score": 0.008197,
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "question": "寿命预测如何帮助优化库存和备件管理？",
+      "expected_doc_ids": [
+        "21"
+      ],
+      "category": "mechanism",
+      "top5_doc_ids": [
+        "21",
+        "21",
+        "21",
+        "21",
+        "21"
+      ],
+      "top1_score": 0.008197,
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "question": "资产管理者在优化成本时通常使用哪些经济学分析工具？",
+      "expected_doc_ids": [
+        "21"
+      ],
+      "category": "mechanism",
+      "top5_doc_ids": [
+        "21",
+        "21",
+        "21",
+        "21",
+        "21"
+      ],
+      "top1_score": 0.008197,
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "question": "资产管理的技术方面和经济方面分别包括哪些内容？",
+      "expected_doc_ids": [
+        "21"
+      ],
+      "category": "mechanism",
+      "top5_doc_ids": [
+        "21",
+        "21",
+        "21",
+        "21",
+        "21"
+      ],
+      "top1_score": 0.008197,
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "question": "设备维修和再制造有什么区别？",
+      "expected_doc_ids": [
+        "21"
+      ],
+      "category": "mechanism",
+      "top5_doc_ids": [
+        "21",
+        "21",
+        "21",
+        "24",
+        "21"
+      ],
+      "top1_score": 0.008197,
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "question": "隐马尔可夫模型和隐半马尔可夫模型有什么区别？",
+      "expected_doc_ids": [
+        "26"
+      ],
+      "category": "mechanism",
+      "top5_doc_ids": [
+        "21",
+        "26",
+        "21",
+        "21",
+        "21"
+      ],
+      "top1_score": 0.008197,
+      "hit": true,
+      "rank": 2
+    },
+    {
+      "question": "故障预测方法主要有哪些类型，它们各自适用于什么场景？",
+      "expected_doc_ids": [
+        "24"
+      ],
+      "category": "mechanism",
+      "top5_doc_ids": [
+        "25",
+        "25",
+        "24",
+        "21",
+        "21"
+      ],
+      "top1_score": 0.008197,
+      "hit": true,
+      "rank": 3
+    },
+    {
+      "question": "航空电子设备PHM技术主要包括哪些关键技术？",
+      "expected_doc_ids": [
+        "24"
+      ],
+      "category": "overview",
+      "top5_doc_ids": [
+        "24",
+        "24",
+        "24",
+        "24",
+        "24"
+      ],
+      "top1_score": 0.008197,
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "question": "航空电子设备PHM中有哪些混合模型或机器学习方法的应用？",
+      "expected_doc_ids": [
+        "24"
+      ],
+      "category": "overview",
+      "top5_doc_ids": [
+        "24",
+        "24",
+        "24",
+        "24",
+        "24"
+      ],
+      "top1_score": 0.008197,
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "question": "动态贝叶斯网络在寿命延长决策中是如何应用的？",
+      "expected_doc_ids": [
+        "21"
+      ],
+      "category": "overview",
+      "top5_doc_ids": [
+        "21",
+        "21",
+        "26",
+        "21",
+        "21"
+      ],
+      "top1_score": 0.008197,
+      "hit": true,
+      "rank": 1
+    },
+    {
+      "question": "如何利用传感器数据来建立设备更换和备件库存的预测模型？",
+      "expected_doc_ids": [
+        "21"
+      ],
+      "category": "overview",
+      "top5_doc_ids": [
+        "21",
+        "21",
+        "21",
+        "21",
+        "26"
+      ],
+      "top1_score": 0.008197,
+      "hit": true,
+      "rank": 1
+    }
+  ],
+  "metrics": {
+    "total_normal": 20,
+    "total_negative": 0,
+    "hit_rate": 0.95,
+    "mrr": 0.8917,
+    "normal_hits": 19,
+    "negative_correct": 0,
+    "negative_fpr": null,
+    "group_factual": {
+      "count": 8,
+      "hit_rate": 0.875,
+      "mrr": 0.875
+    },
+    "group_mechanism": {
+      "count": 8,
+      "hit_rate": 1.0,
+      "mrr": 0.8542
+    },
+    "group_overview": {
+      "count": 4,
+      "hit_rate": 1.0,
+      "mrr": 1.0
+    }
+  }
+}

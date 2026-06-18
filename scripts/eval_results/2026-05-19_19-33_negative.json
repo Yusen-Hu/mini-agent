@@ -1,0 +1,83 @@
+{
+  "timestamp": "2026-05-19T19:33:25.743559",
+  "user_id": 9,
+  "settings": {
+    "DENSE_TOP_K": 20,
+    "BM25_TOP_K": 20,
+    "FINAL_TOP_K": 5,
+    "RRF_K": 60,
+    "RRF_ALPHA": 0.5,
+    "negative_threshold": null
+  },
+  "results": [
+    {
+      "question": "世界杯足球赛的规则是什么？",
+      "expected_doc_ids": [],
+      "category": "negative",
+      "top5_doc_ids": [
+        "21",
+        "21",
+        "25",
+        "21",
+        "21"
+      ],
+      "top1_score": 0.008197,
+      "hit": false,
+      "rank": 0
+    },
+    {
+      "question": "Python 的 GIL 机制是什么？",
+      "expected_doc_ids": [],
+      "category": "negative",
+      "top5_doc_ids": [
+        "21",
+        "21",
+        "21",
+        "21",
+        "21"
+      ],
+      "top1_score": 0.008197,
+      "hit": false,
+      "rank": 0
+    },
+    {
+      "question": "如何做红烧肉？",
+      "expected_doc_ids": [],
+      "category": "negative",
+      "top5_doc_ids": [
+        "21",
+        "25",
+        "19",
+        "21",
+        "25"
+      ],
+      "top1_score": 0.008197,
+      "hit": false,
+      "rank": 0
+    },
+    {
+      "question": "最近的 NBA 季后赛结果如何？",
+      "expected_doc_ids": [],
+      "category": "negative",
+      "top5_doc_ids": [
+        "21",
+        "21",
+        "21",
+        "21",
+        "21"
+      ],
+      "top1_score": 0.008197,
+      "hit": false,
+      "rank": 0
+    }
+  ],
+  "metrics": {
+    "total_normal": 0,
+    "total_negative": 4,
+    "hit_rate": 0.0,
+    "mrr": 0.0,
+    "normal_hits": 0,
+    "negative_correct": 0,
+    "negative_fpr": null
+  }
+}

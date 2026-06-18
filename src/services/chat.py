@@ -18,6 +18,7 @@ logger = get_logger("chat")
 
 _CLEAR_ALL_PAT = re.compile(r"所有|全部|每一篇|各篇|这些文档|那些文档|我上传的|上传的所有|所有文档")
 _REFERENTIAL_PAT = re.compile(r"那篇|这篇|该篇|它|刚才|上面|之前那|上次那|第\d+篇|ID[:\s]*\d+")
+_CONTEXT_ADJACENT_PAT = re.compile(r"上下文|前后内容|相邻片段|前文|后文|前后给我")
 _DEGRADE_MARKER = "未在知识库中找到相关内容"
 
 
@@ -283,8 +284,10 @@ def chat(message: str, session_id: str | None = None, user_id: int | None = None
 
         # ── 预检索：确定性搜索，不依赖 ReAct 工具调用 ──
         skip_pre_retrieval = routing.get("method") == "regex_list_docs"
+        if not skip_pre_retrieval and _CONTEXT_ADJACENT_PAT.search(normalized_query):
+            skip_pre_retrieval = True
         if skip_pre_retrieval:
-            logger.info("pre-retrieval: skipped (list_documents intent)")
+            logger.info("pre-retrieval: skipped")
             messages_no_system = history_msgs + [HumanMessage(content=normalized_query)]
         else:
             from skills.rag.retrieval import search_documents
@@ -513,8 +516,10 @@ async def chat_stream(message: str, session_id: str | None = None,
 
             # ── 预检索：确定性搜索，不依赖 ReAct 工具调用 ──
             skip_pre_retrieval = routing.get("method") == "regex_list_docs"
+            if not skip_pre_retrieval and _CONTEXT_ADJACENT_PAT.search(normalized_query):
+                skip_pre_retrieval = True
             if skip_pre_retrieval:
-                logger.info("pre-retrieval: skipped (list_documents intent)")
+                logger.info("pre-retrieval: skipped")
                 messages_no_system = history_msgs + [HumanMessage(content=normalized_query)]
             else:
                 from skills.rag.retrieval import search_documents

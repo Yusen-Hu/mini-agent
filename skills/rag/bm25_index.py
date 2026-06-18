@@ -41,7 +41,7 @@ class BM25Index:
             all_rows = milvus_client.query(
                 collection_name=collection_name,
                 filter="",
-                output_fields=["document_id", "text", "user_id", "is_public", "chunk_index"],
+                output_fields=["document_id", "text", "user_id", "is_public", "chunk_index", "source"],
                 limit=16384,
             )
             self._build_from_rows(all_rows)

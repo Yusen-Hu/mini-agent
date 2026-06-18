@@ -322,7 +322,7 @@ def chat(message: str, session_id: str | None = None, user_id: int | None = None
         try:
             result = rag_agent.invoke(
                 {"messages": [SystemMessage(content=RAG_SYSTEM_PROMPT)] + messages_no_system},
-                config={"recursion_limit": 7, "configurable": {
+                config={"recursion_limit": 12, "configurable": {
                     "request_id": request_id,
                     "document_ids": doc_ids,
                 }},
@@ -553,7 +553,7 @@ async def chat_stream(message: str, session_id: str | None = None,
             pending_tool_name = ""
             async for chunk in rag_agent.astream(
                 {"messages": all_msgs},
-                config={"recursion_limit": 7, "configurable": {
+                config={"recursion_limit": 12, "configurable": {
                     "request_id": request_id,
                     "document_ids": doc_ids,
                 }},

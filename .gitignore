@@ -7,6 +7,9 @@ __pycache__/
 
 # Environment
 .env
+.env.*
+!.env.example
+!.env.docker.example
 
 # Logs
 logs/
@@ -18,6 +21,15 @@ data/documents/
 # Frontend
 frontend/node_modules/
 frontend/dist/
+
+# Internal docs (not for public repo)
+docs/
+PROJECT_STATUS.md
+AGENTS.md
+protocols/
+
+# Eval datasets (results are public, questions are not)
+scripts/eval_sets/
 
 # Legacy
 backend_old/

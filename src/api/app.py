@@ -34,6 +34,11 @@ setup_logging(
     backup_count=settings.LOG_BACKUP_COUNT,
 )
 
+# 安全检查
+import logging
+if not settings.JWT_SECRET_KEY or settings.JWT_SECRET_KEY in ("change-me-in-production", "generate-a-random-secret"):
+    logging.warning("JWT_SECRET_KEY 使用默认值，生产环境必须修改！")
+
 # 创建数据库表（Phase 1 简化方案，生产环境用 Alembic）
 Base.metadata.create_all(bind=engine)
 

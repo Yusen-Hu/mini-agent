@@ -4,7 +4,15 @@
 
 ## 截图
 
-<!-- TODO: 添加 1-2 张 UI 截图（聊天界面 + 引用卡片） -->
+**聊天界面 + 引用卡片**
+
+![聊天界面](images/chat-interface.png)
+
+![引用卡片](images/citation-card.png)
+
+**Admin 管理面板**
+
+![Admin 面板](images/admin-panel.png)
 
 ## Quick Start
 

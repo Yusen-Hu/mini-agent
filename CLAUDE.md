@@ -100,16 +100,16 @@ mini_agent/
 │   └── package.json
 │
 ├── data/documents/                         # 上传文档存放目录
-├── docs/                                   # 各 Phase 升级方案
 ├── scripts/                                # 评估脚本 + 数据迁移
 │   ├── eval_retrieval.py                   # RAG 检索评测（HR@8 / MRR@8）
 │   ├── gen_eval_questions.py               # LLM 自动生成评测问题
-│   └── eval_sets/                          # 评测集 JSON（eval_type: retrieval/routing/negative）
+│   └── eval_results/                       # 评测结果 JSON
 ├── tests/                                  # 测试目录（unit/ 单测 14 case）
-├── backend_old/                            # 旧架构备份
 ├── docker-compose.yml
-├── .env                                    # 环境变量（不提交版本控制）
-└── CLAUDE.md                               # 本文件
+├── .env.example                            # 本地开发环境变量模板
+├── .env.docker.example                     # Docker 部署环境变量模板
+├── CLAUDE.md                               # 本文件
+└── LICENSE                                 # Apache 2.0
 ```
 
 ---
@@ -122,7 +122,7 @@ docker compose up -d
 
 # 2. 本地开发后端（先停 Docker 后端容器释放 8000 端口）
 docker stop mini_agent-backend-1
-E:\1\python\envs\supermew\python.exe -m uvicorn src.api.app:app --host 0.0.0.0 --port 8000 --reload
+python -m uvicorn src.api.app:app --host 0.0.0.0 --port 8000 --reload
 
 # 3. 本地开发前端
 cd frontend
@@ -142,22 +142,14 @@ npm run build        # 打包到 dist/，uvicorn 才能 serve
 
 ## 环境变量（.env）
 
-```env
-LLM_API_KEY=sk-xxx              # LLM API Key（通过 LiteLLM 路由）
-LLM_MODEL=openai/kimi-k2.5      # litellm 格式: provider/model-name
-LLM_BASE_URL=https://api.moonshot.cn/v1
-DATABASE_URL=postgresql+psycopg2://postgres:postgres@localhost:5432/mini_agent
-MILVUS_URI=http://127.0.0.1:19530
-JWT_SECRET_KEY=change-me-in-production
-EMBEDDING_MODEL=sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
-ANALYSIS_CHAR_BUDGET=8000        # 单篇文档分析字符预算
-RETRIEVAL_STRATEGY=bm25_primary  # "symmetric_rrf" | "bm25_primary"（BM25 候选池 + Dense rerank）
+详见 `.env.example`（本地开发）和 `.env.docker.example`（Docker 部署）。
 
-# LangSmith（可选，取消注释启用）
-# LANGCHAIN_TRACING_V2=true
-# LANGCHAIN_API_KEY=lsv2_pt_xxx
-# LANGCHAIN_PROJECT=mini-agent
-```
+关键变量：
+- `LLM_API_KEY`：LLM API Key（必填）
+- `LLM_MODEL`：litellm 格式，默认 `openai/kimi-k2.5`
+- `DATABASE_URL`：PostgreSQL 连接串
+- `JWT_SECRET_KEY`：JWT 签名密钥（生产环境必须修改）
+- `RETRIEVAL_STRATEGY`：`symmetric_rrf` | `bm25_primary`
 
 ---
 
@@ -282,15 +274,13 @@ FAST_ROUTES: list[dict] = [
 | `chat_stream` 中途断开 | 低 | 断开时会把不完整回复写入历史记录（已在 finally 块保存已生成部分） |
 | CORS 全开 | 中 | `allow_origins=["*"]`，生产环境需收紧 |
 | 无 Alembic | 中 | 用 `create_all()`，不能 ALTER 已有表，schema 变更需手动 SQL |
-| LangSmith 配置已就位 | 低 | .env 中 LANGCHAIN_* 字段已配置，API key 已设置，注释状态可随时启用 |
+| LangSmith 配置已就位 | 低 | .env 中 LANGCHAIN_* 字段已配置，注释状态可随时启用 |
 
 ---
 
 ## 注意事项
 
 - `.env` 包含 API Key，**不要提交到版本控制**
-- Python 环境统一使用 `E:\1\python\envs\supermew\python.exe`（Python 3.12），**禁止使用 conda 命令**
-- 安装依赖：`E:\1\python\envs\supermew\python.exe -m pip install <package>`
 - Docker 后端容器绑了 8000 端口，本地跑 uvicorn 需先 `docker stop mini_agent-backend-1`
 - HuggingFace 本地测试需要 `HF_ENDPOINT=https://hf-mirror.com`，且需要关掉 VPN（TUN 模式劫持 SSL）
 - 改了 `.vue` 文件必须 `npm run build`，uvicorn serve 的是 `frontend/dist/`

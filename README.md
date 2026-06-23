@@ -10,10 +10,6 @@
 
 ![引用卡片](images/citation-card.png)
 
-**Admin 管理面板**
-
-![Admin 面板](images/admin-panel.png)
-
 ## Quick Start
 
 ```bash

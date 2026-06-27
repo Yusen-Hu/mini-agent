@@ -98,7 +98,7 @@ def _summarize_messages(messages: list, existing_summary: str | None = None) -> 
     prompt = (
         "你是一个对话摘要助手。请把以下对话历史压缩成一段简洁的摘要（中文），"
         "保留关键信息：用户偏好、讨论过的核心话题、重要结论、待办事项。"
-        "控制在 300 字以内。"
+        f"控制在 {settings.MEMORY_SUMMARY_MAX_TOKENS} tokens 以内。"
     )
     combined = ""
     if existing_summary:
@@ -119,7 +119,7 @@ def _summarize_messages(messages: list, existing_summary: str | None = None) -> 
         return existing_summary or ""
 
 
-def _load_messages(db: Session, session_id_int: int) -> list:
+def _load_messages_with_summary(db: Session, session_id_int: int) -> list:
     """加载历史消息，超出 token 预算时用 LLM 压缩旧消息为摘要。
 
     新行为（MEMORY_SUMMARY_ENABLED=True）：
@@ -184,7 +184,8 @@ def _load_messages(db: Session, session_id_int: int) -> list:
     # Token 计算
     try:
         enc = tiktoken.get_encoding("cl100k_base")
-        total_tokens = sum(len(enc.encode(m.content)) for m in messages)
+        summary_tokens = len(enc.encode(existing_summary)) if existing_summary else 0
+        total_tokens = sum(len(enc.encode(m.content)) for m in messages) + summary_tokens
     except Exception as e:
         logger.warning("tiktoken 加载失败，降级为条数截断: %s", e)
         limit = settings.CHAT_HISTORY_LIMIT * 2
@@ -202,6 +203,9 @@ def _load_messages(db: Session, session_id_int: int) -> list:
     # 超预算：压缩旧消息
     keep_recent = settings.MEMORY_SUMMARY_KEEP_RECENT
     if len(messages) <= keep_recent:
+        # 消息太少不够压缩，但可能超出预算 → 丢弃摘要，截断消息
+        total_tokens -= summary_tokens
+        summary_tokens = 0
         while total_tokens > settings.MAX_HISTORY_TOKENS and len(messages) > 1:
             removed = messages.pop(0)
             total_tokens -= len(enc.encode(removed.content))
@@ -256,7 +260,7 @@ def chat(message: str, session_id: str | None = None, user_id: int | None = None
         session = _create_session(db, new_uuid, user_id or 0, title)
 
     # 2. 加载历史消息（截断）
-    history_msgs = _load_messages(db, session.id)
+    history_msgs = _load_messages_with_summary(db, session.id)
 
     # 3. 构建文档列表（给 supervisor 做 ID 提取用）
     from src.types.document import Document as DocModel
@@ -469,7 +473,7 @@ async def chat_stream(message: str, session_id: str | None = None,
         db_session_id = session.id
         db_session_uuid = str(session.session_uuid)
 
-        history_msgs = _load_messages(db, db_session_id)
+        history_msgs = _load_messages_with_summary(db, db_session_id)
 
         # 先保存用户消息
         _save_message(db, db_session_id, "user", message)

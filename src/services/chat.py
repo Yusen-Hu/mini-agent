@@ -92,7 +92,7 @@ def _create_session(db: Session, session_uuid: uuid.UUID, user_id: int, title: s
 
 
 def _summarize_messages(messages: list, existing_summary: str | None = None) -> str:
-    """用 LLM 把旧消息压缩成摘要（中文，300 字以内）。"""
+    """用 LLM 把旧消息压缩成摘要（中文），token 上限由 MEMORY_SUMMARY_MAX_TOKENS 控制。"""
     from src.services.llm import llm
 
     prompt = (
@@ -204,8 +204,10 @@ def _load_messages_with_summary(db: Session, session_id_int: int) -> list:
     keep_recent = settings.MEMORY_SUMMARY_KEEP_RECENT
     if len(messages) <= keep_recent:
         # 消息太少不够压缩，但可能超出预算 → 丢弃摘要，截断消息
-        total_tokens -= summary_tokens
-        summary_tokens = 0
+        if session and existing_summary:
+            session.summary = None
+            db.commit()
+            logger.info("摘要已清除: 消息不足 KEEP_RECENT 条，摘要无法容纳 [session=%d]", session_id_int)
         while total_tokens > settings.MAX_HISTORY_TOKENS and len(messages) > 1:
             removed = messages.pop(0)
             total_tokens -= len(enc.encode(removed.content))

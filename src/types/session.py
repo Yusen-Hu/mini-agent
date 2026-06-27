@@ -14,6 +14,7 @@ class ChatSession(Base):
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
     title = Column(String(200), nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
+    summary = Column(Text, nullable=True)  # 对话历史摘要，超出 token 预算时 LLM 自动生成
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
 

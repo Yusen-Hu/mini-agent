@@ -57,6 +57,11 @@ class Settings(BaseSettings):
     LOG_MAX_BYTES: int = 10 * 1024 * 1024
     LOG_BACKUP_COUNT: int = 5
 
+    # Memory
+    MEMORY_SUMMARY_ENABLED: bool = True       # 启用对话摘要压缩（关闭则回退到旧截断逻辑）
+    MEMORY_SUMMARY_KEEP_RECENT: int = 8       # 保留最近 N 条消息原文，更早的压缩成摘要
+    MEMORY_SUMMARY_MAX_TOKENS: int = 500      # 摘要最大 token 数
+
     # CORS
     CORS_ORIGINS: List[str] = ["*"]
 

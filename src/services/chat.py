@@ -91,21 +91,81 @@ def _create_session(db: Session, session_uuid: uuid.UUID, user_id: int, title: s
     return session
 
 
+def _summarize_messages(messages: list, existing_summary: str | None = None) -> str:
+    """用 LLM 把旧消息压缩成摘要（中文，300 字以内）。"""
+    from src.services.llm import llm
+
+    prompt = (
+        "你是一个对话摘要助手。请把以下对话历史压缩成一段简洁的摘要（中文），"
+        "保留关键信息：用户偏好、讨论过的核心话题、重要结论、待办事项。"
+        "控制在 300 字以内。"
+    )
+    combined = ""
+    if existing_summary:
+        combined += f"[之前的摘要]\n{existing_summary}\n\n"
+    combined += "[新增对话]\n"
+    for m in messages:
+        role = "用户" if isinstance(m, HumanMessage) else "助手"
+        combined += f"{role}: {m.content[:300]}\n"
+
+    try:
+        summary_msg = llm.invoke([
+            SystemMessage(content=prompt),
+            HumanMessage(content=combined),
+        ])
+        return summary_msg.content.strip()
+    except Exception as e:
+        logger.warning("摘要生成失败，保留已有摘要: %s", e)
+        return existing_summary or ""
+
+
 def _load_messages(db: Session, session_id_int: int) -> list:
-    """从 DB 加载最近 N 条消息，转为 LangChain 消息对象。按时间正序返回。
-    双重截断：先按条数限制，再按 token 数限制，取保守值。
+    """加载历史消息，超出 token 预算时用 LLM 压缩旧消息为摘要。
+
+    新行为（MEMORY_SUMMARY_ENABLED=True）：
+    1. 加载全部消息
+    2. token 未超预算 → 返回全部（拼入已有 summary）
+    3. token 超预算 → 保留最近 KEEP_RECENT 条原文，旧消息压缩成摘要
+
+    降级（MEMORY_SUMMARY_ENABLED=False 或 tiktoken 失败）：
+    回退到旧的条数 + token 截断逻辑。
     """
     import tiktoken
 
-    limit = settings.CHAT_HISTORY_LIMIT * 2  # 每轮 2 条（user + assistant）
+    # ── 降级路径：关闭摘要功能 → 旧行为 ──
+    if not settings.MEMORY_SUMMARY_ENABLED:
+        limit = settings.CHAT_HISTORY_LIMIT * 2
+        rows = (
+            db.query(ChatMessage)
+            .filter(ChatMessage.session_id == session_id_int)
+            .order_by(ChatMessage.created_at.desc())
+            .limit(limit)
+            .all()
+        )
+        rows.reverse()
+        messages = []
+        for row in rows:
+            if row.role == "user":
+                messages.append(HumanMessage(content=row.content))
+            elif row.role == "assistant":
+                messages.append(AIMessage(content=row.content))
+        try:
+            enc = tiktoken.get_encoding("cl100k_base")
+            total_tokens = sum(len(enc.encode(m.content)) for m in messages)
+            while total_tokens > settings.MAX_HISTORY_TOKENS and len(messages) > 1:
+                removed = messages.pop(0)
+                total_tokens -= len(enc.encode(removed.content))
+        except Exception as e:
+            logger.warning("tiktoken 截断失败，降级为仅条数截断: %s", e)
+        return messages
+
+    # ── 新行为：摘要压缩 ──
     rows = (
         db.query(ChatMessage)
         .filter(ChatMessage.session_id == session_id_int)
-        .order_by(ChatMessage.created_at.desc())
-        .limit(limit)
+        .order_by(ChatMessage.created_at.asc())
         .all()
     )
-    rows.reverse()  # 恢复时间正序
 
     messages = []
     for row in rows:
@@ -114,17 +174,57 @@ def _load_messages(db: Session, session_id_int: int) -> list:
         elif row.role == "assistant":
             messages.append(AIMessage(content=row.content))
 
-    # Token 截断：从头部丢弃消息，直到总 token 数 <= MAX_HISTORY_TOKENS
+    if not messages:
+        return messages
+
+    # 获取已有摘要
+    session = db.query(ChatSession).filter(ChatSession.id == session_id_int).first()
+    existing_summary = session.summary if session else None
+
+    # Token 计算
     try:
         enc = tiktoken.get_encoding("cl100k_base")
         total_tokens = sum(len(enc.encode(m.content)) for m in messages)
+    except Exception as e:
+        logger.warning("tiktoken 加载失败，降级为条数截断: %s", e)
+        limit = settings.CHAT_HISTORY_LIMIT * 2
+        if len(messages) > limit:
+            messages = messages[-limit:]
+        return messages
+
+    # 未超预算：全部返回（拼上已有摘要）
+    if total_tokens <= settings.MAX_HISTORY_TOKENS:
+        result = list(messages)
+        if existing_summary:
+            result.insert(0, SystemMessage(content=f"[对话历史摘要]\n{existing_summary}"))
+        return result
+
+    # 超预算：压缩旧消息
+    keep_recent = settings.MEMORY_SUMMARY_KEEP_RECENT
+    if len(messages) <= keep_recent:
         while total_tokens > settings.MAX_HISTORY_TOKENS and len(messages) > 1:
             removed = messages.pop(0)
             total_tokens -= len(enc.encode(removed.content))
-    except Exception as e:
-        logger.warning("tiktoken 截断失败，降级为仅条数截断: %s", e)
+        return messages
 
-    return messages
+    split_at = len(messages) - keep_recent
+    recent = messages[split_at:]
+    old = messages[:split_at]
+
+    logger.info(
+        "压缩摘要: %d 条旧消息 → 摘要, 保留最近 %d 条 [session=%d]",
+        len(old), len(recent), session_id_int,
+    )
+    new_summary = _summarize_messages(old, existing_summary)
+
+    # 存回 DB
+    if session and new_summary:
+        session.summary = new_summary
+        db.commit()
+
+    result = [SystemMessage(content=f"[对话历史摘要]\n{new_summary}")] if new_summary else []
+    result.extend(recent)
+    return result
 
 
 def _save_message(db: Session, session_id_int: int, role: str, content: str,

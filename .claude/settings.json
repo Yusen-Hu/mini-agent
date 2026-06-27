@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit.*\\.vue",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd frontend && npm run build"
+          }
+        ]
+      }
+    ]
+  }
+}
